@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 cap = cv2.VideoCapture(0)
+kernel = np.ones((5,5),np.uint8)
 
 while(1):
 
@@ -10,6 +11,8 @@ while(1):
 
     # Convert BGR to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    #Removendo o ruído da imagem por meio da mediana
     hsv = cv2.medianBlur(hsv,7)
 
     # define range of yellow color in HSV
@@ -18,6 +21,9 @@ while(1):
 
     # Threshold the HSV image to get only yellow colors
     mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+
+    #dilatando a imagem para facilitar encontrar a imagem
+    mask = cv2.dilate(mask,kernel,iterations = 1)
 
     # Bitwise-AND mask and original image
     res = cv2.bitwise_and(frame,frame, mask= mask)
