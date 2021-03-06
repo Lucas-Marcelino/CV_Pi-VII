@@ -10,6 +10,7 @@ while(1):
 
     # Convert BGR to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv2.medianBlur(hsv,7)
 
     # define range of yellow color in HSV
     lower_yellow = np.array([25,50,50])
