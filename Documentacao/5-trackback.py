@@ -33,5 +33,6 @@ while(1):
         img[:] = 0
     else:
         img[:] = [b,g,r]
+        print([b,g,r])
 
 cv2.destroyAllWindows()
