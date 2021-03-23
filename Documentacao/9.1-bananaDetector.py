@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-frame = cv2.imread('banana.jpg')
+frame = cv2.imread('banana3.jpg')
 
 kernel = np.ones((5,5),np.uint8)
 
@@ -12,7 +12,7 @@ hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 hsv = cv2.medianBlur(hsv,7)
 
 # define range of yellow color in HSV
-lower_yellow = np.array([25,50,50])
+lower_yellow = np.array([0,50,50])
 upper_yellow = np.array([32,255,255])
 
 # Threshold the HSV image to get only yellow colors

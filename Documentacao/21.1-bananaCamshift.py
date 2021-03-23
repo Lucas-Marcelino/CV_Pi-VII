@@ -15,7 +15,7 @@ def det_banana(filename):
     # set up the ROI for tracking
     roi = frame[r:r+h, c:c+w]
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    mask = cv2.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
+    mask = cv2.inRange(hsv_roi, np.array((0., 50.,50.)), np.array((32.,255.,255.)))
     roi_hist = cv2.calcHist([hsv_roi],[0],mask,[180],[0,180])
     cv2.normalize(roi_hist,roi_hist,0,255,cv2.NORM_MINMAX)
 
@@ -52,11 +52,14 @@ def det_banana(filename):
     cv2.destroyAllWindows()
     cap.release()
 
-filename = 'bananaSem.mp4'
-det_banana(filename)
+# filename = 'bananaSem.mp4'
+# det_banana(filename)
 
-filename = 'banana1.mp4'
-det_banana(filename)
+# filename = 'banana1.mp4'
+# det_banana(filename)
 
-filename = 'banana2.mp4'
+# filename = 'banana2.mp4'
+# det_banana(filename)
+
+filename = 'banana3.mp4'
 det_banana(filename)
