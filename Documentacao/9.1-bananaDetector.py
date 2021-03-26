@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-frame = cv2.imread('banana3.jpg')
+frame = cv2.imread('banana3.png')
 
 kernel = np.ones((5,5),np.uint8)
 
