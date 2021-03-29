@@ -78,7 +78,9 @@ def computeTracking(frame, hue, sat, val):
         xRect, yRect, wRect, hRect = cv2.boundingRect(cntMaxArea)
         
         #desenha caixa envolvente com espessura 3
-        cv2.rectangle(frame, (xRect, yRect), (xRect + wRect, yRect + hRect), (0, 0, 255), 2)
+        cv2.rectangle(frame, (xRect, yRect), (xRect + wRect, yRect + hRect), (140, 230, 140), 2)
+
+        print(lowerColor, upperColor)
     
     return frame, gray
 
@@ -122,3 +124,4 @@ while True:
         
 cap.release()
 cv2.destroyAllWindows()
+print(f'HM: {max_hue}, Hm: {min_hue} \nSM: {max_sat}, Sm: {min_sat} \nVM: {max_val}, Vm: {min_val}')
