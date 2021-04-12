@@ -80,16 +80,16 @@ def Videotracking(frame, hue, sat, val, verde = True):
             cv2.circle(frame, PontoCentralContorno, 1, (140, 230, 140), 5)
 
             if (TestaInterseccao(CoordenadaYCentroContorno,CoordenadaYLinha)):
-                #ContadorVerde += 1
-                print("Verde",ContadorVerde)
+                global ContadorVerde
+                ContadorVerde += 1
 
         else:
             cv2.rectangle(frame, (xRect, yRect), (xRect + wRect, yRect + hRect), (0, 255, 255), 2)
             cv2.circle(frame, PontoCentralContorno, 1, (0, 255, 255), 5)
 
             if (TestaInterseccao(CoordenadaYCentroContorno,CoordenadaYLinha)):
-                #ContadorAmarelo += 1
-                print("Amarelo",ContadorAmarelo)
+                global ContadorAmarelo
+                ContadorAmarelo += 1
     
     return frame, gray
 
