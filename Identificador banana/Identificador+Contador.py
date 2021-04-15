@@ -1,5 +1,6 @@
 import datetime
 import math
+import time
 import cv2
 import numpy as np
 
@@ -14,16 +15,18 @@ OffsetLinhasRef = 260
 
 cap = cv2.VideoCapture(0)
 
+
 def TestaInterseccao(y, CoordenadaYLinha):
     DiferencaAbsoluta = abs(y - CoordenadaYLinha)	
 
-    if (DiferencaAbsoluta <= 5):
+    if (DiferencaAbsoluta <= 7):
         return True
     else:
         return False
 
 
 def Videotracking(frame, hue, sat, val, verde = True):
+    global ticAmarelo, ticVerde, tocAmarelo, tocVerde
     
     #transforma a imagem de RGB para HSV
     hsvImage = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -71,7 +74,7 @@ def Videotracking(frame, hue, sat, val, verde = True):
 
         #desenha linhas de referencia 
         CoordenadaYLinha = round(height / 2)
-        cv2.line(frame, (0,CoordenadaYLinha), (width,CoordenadaYLinha), (0, 0, 0), 2)
+        cv2.line(frame, (0,CoordenadaYLinha), (width,CoordenadaYLinha), (0, 0, 0), 3)
 
         
         #desenha caixa envolvente com espessura 3
@@ -81,7 +84,10 @@ def Videotracking(frame, hue, sat, val, verde = True):
 
             if (TestaInterseccao(CoordenadaYCentroContorno,CoordenadaYLinha)):
                 global ContadorVerde
-                ContadorVerde += 1
+                if (ticVerde - tocVerde) > 4: 
+                    ContadorVerde += 1
+                    print(tocVerde, ticVerde)
+                    tocVerde = time.time()
 
         else:
             cv2.rectangle(frame, (xRect, yRect), (xRect + wRect, yRect + hRect), (0, 255, 255), 2)
@@ -89,7 +95,9 @@ def Videotracking(frame, hue, sat, val, verde = True):
 
             if (TestaInterseccao(CoordenadaYCentroContorno,CoordenadaYLinha)):
                 global ContadorAmarelo
-                ContadorAmarelo += 1
+                if True: #(tocAmarelo - ticAmarelo) > 4: 
+                    ContadorAmarelo += 1
+                    tocAmarelo = time.time()
     
     return frame, gray
 
@@ -101,13 +109,20 @@ hue_amarelo = {'min':15, 'max':50}
 sat_amarelo = {'min':150, 'max':210}
 val_amarelo = {'min':145, 'max':230}
 
+ticVerde = time.time()
+ticAmarelo = time.time()
+
+tocVerde = time.time()
+tocAmarelo = time.time()
 
 while True:
     success, frame = cap.read()
     height = np.size(frame,0)
     width = np.size(frame,1)
     
+    ticVerde = time.time()
     frame, gray_verde = Videotracking(frame, hue_verde, sat_verde, val_verde)
+    ticAmarelo = time.time()
     frame, gray_amarelo = Videotracking(frame, hue_amarelo, sat_amarelo, val_amarelo, verde=False)
 
     #Escreve na imagem o numero de pessoas que entraram ou sairam da area vigiada
