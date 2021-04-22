@@ -1,7 +1,7 @@
 import time
 
 class TicToc:
-    def __init__(self, delay):
+    def __init__(self, delay = 4):
         self.tic = time.time()
         self.toc = time.time()
         self.delay = delay
