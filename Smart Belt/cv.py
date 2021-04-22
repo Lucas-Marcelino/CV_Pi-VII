@@ -1,5 +1,3 @@
-from timer import TicToc
-from colors import hsv
 import cv2
 import numpy as np
 

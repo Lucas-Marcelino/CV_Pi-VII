@@ -1,9 +1,8 @@
 from timer import TicToc
-from cv import TestaInterseccao, Videotracking
+from cv import Videotracking
 from colors import hsv
 from counter import counter
 import cv2
-import numpy as np
 
 ContadorVerde = counter()
 ContadorAmarelo = counter()
