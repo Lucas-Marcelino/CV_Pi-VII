@@ -7,3 +7,6 @@ class counter:
     
     def addCount(self):
         self.count += 1
+
+    def saveData(self):
+        print('Falta implementar')
